@@ -15,7 +15,7 @@
 #include <ctype.h>
 #include "sorter.h"
 #include "mergesort.c"
-#include "test.c"
+#include "sortFile.c"
 #define MAX 10000
 
 int main (int argc, char *argv[]) 
@@ -52,20 +52,15 @@ int main (int argc, char *argv[])
 		}
 
 
-	printf("reading file...");
-
     char * fileName = argv[4]; 
     FILE* fileIn = fopen(fileName, "r");
 
-    printf("read file, now running sortFile");
-		
 
 		Movie **movieList = sortFile(argv[2],fileIn);
 
-		printf("moviesorted");
 
 		//printAll(movieList);
-		printAllCSV(movieList);
+		printAllCSVFile(movieList);
 		return 0;
     }
 
@@ -208,6 +203,58 @@ void printAllCSV (Movie **movieList)
 
 		else {
 			printf("%s,%s,%i,%i,%i,%i,%s,%i,%i,%s,%s,%s,%i,%i,%s,%i,%s,%s,%i,%s,%s,%s,%i,%i,%i,%f,%f,%i\n",
+				movieList[i]->color, movieList[i]->director_name, movieList[i]->num_critic_for_reviews, movieList[i]->duration, 
+				movieList[i]->director_facebook_likes, movieList[i]->actor_3_facebook_likes, movieList[i]->actor_2_name,
+				movieList[i]->actor_1_facecbook_likes, movieList[i]->gross, movieList[i]->genres, movieList[i]->actor_1_name, 
+				movieList[i]->movie_title, movieList[i]->num_voted_users, movieList[i]->cast_total_facebook_likes, 
+				movieList[i]->actor_3_name, movieList[i]->facenumber_in_poster, movieList[i]->plot_keywords, 
+				movieList[i]->movie_imbd_link, movieList[i]->num_user_for_reviews, movieList[i]->language, 
+				movieList[i]->country, movieList[i]->content_rating, movieList[i]->budget, movieList[i]->title_year, 
+				movieList[i]->actor_2_facebook_likes, movieList[i]->imbd_score, movieList[i]->aspect_ratio, 
+				movieList[i]->movie_facebook_likes);
+			i++;
+		}
+	}
+}
+
+void printAllCSVFile (Movie **movieList)
+{	
+	char *outputFilename = "test.csv";
+	FILE *outputFile = fopen(outputFilename, "w");
+	
+	if (outputFile == NULL) {
+  		fprintf(stderr, "Can't open output file %s!\n", outputFilename);
+	  	exit(1);
+	}
+
+
+	fprintf(outputFile, "color,director_name,num_critic_for_reviews,duration,director_facebook_likes"
+			",actor_3_facebook_likes,actor_2_name,actor_1_facebook_likes,gross,genres,"
+			"actor_1_name,movie_title,num_voted_users,cast_total_facebook_likes,actor_3_name,"
+			"facenumber_in_poster,plot_keywords,movie_imdb_link,num_user_for_reviews,language,"
+			"country,content_rating,budget,title_year,actor_2_facebook_likes,imdb_score,"
+			"aspect_ratio,movie_facebook_likes\n");	
+
+	int i = 0;
+	while (movieList[i] != NULL)
+	{
+		if (strchr(movieList[i]->movie_title, ',') != NULL)
+		{
+			fprintf(outputFile, "%s,%s,%i,%i,%i,%i,%s,%i,%i,%s,%s,\"%s\",%i,%i,%s,%i,%s,%s,%i,%s,%s,%s,%i,%i,%i,%f,%f,%i\n",
+				movieList[i]->color, movieList[i]->director_name, movieList[i]->num_critic_for_reviews, movieList[i]->duration, 
+				movieList[i]->director_facebook_likes, movieList[i]->actor_3_facebook_likes, movieList[i]->actor_2_name,
+				movieList[i]->actor_1_facecbook_likes, movieList[i]->gross, movieList[i]->genres, movieList[i]->actor_1_name, 
+				movieList[i]->movie_title, movieList[i]->num_voted_users, movieList[i]->cast_total_facebook_likes, 
+				movieList[i]->actor_3_name, movieList[i]->facenumber_in_poster, movieList[i]->plot_keywords, 
+				movieList[i]->movie_imbd_link, movieList[i]->num_user_for_reviews, movieList[i]->language, 
+				movieList[i]->country, movieList[i]->content_rating, movieList[i]->budget, movieList[i]->title_year, 
+				movieList[i]->actor_2_facebook_likes, movieList[i]->imbd_score, movieList[i]->aspect_ratio, 
+				movieList[i]->movie_facebook_likes);
+		i++;
+		}
+
+		else {
+			fprintf(outputFile, "%s,%s,%i,%i,%i,%i,%s,%i,%i,%s,%s,%s,%i,%i,%s,%i,%s,%s,%i,%s,%s,%s,%i,%i,%i,%f,%f,%i\n",
 				movieList[i]->color, movieList[i]->director_name, movieList[i]->num_critic_for_reviews, movieList[i]->duration, 
 				movieList[i]->director_facebook_likes, movieList[i]->actor_3_facebook_likes, movieList[i]->actor_2_name,
 				movieList[i]->actor_1_facecbook_likes, movieList[i]->gross, movieList[i]->genres, movieList[i]->actor_1_name, 
