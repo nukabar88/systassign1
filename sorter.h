@@ -51,4 +51,5 @@ void printMovie (Movie *ptr);
 void printMovieFull (Movie *ptr);
 void printAll (Movie **movieList);
 void printAllCSV (Movie **movieList);
+void printAllCSVFile (Movie **movieList);
 char *strtokPlus (char *str, const char *delim);
