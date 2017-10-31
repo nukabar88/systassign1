@@ -51,8 +51,9 @@ int main (int argc, char *argv[])
     char * fileName = argv[4]; 
     FILE* fileIn = fopen(fileName, "r");
 
-		sortFile(argv[2],fileIn);
+		
 
+		Movie **movieList = sortFile(argv[2],fileIn);
 		//printAll(movieList);
 		printAllCSV(movieList);
 		return 0;
