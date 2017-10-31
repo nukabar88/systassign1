@@ -48,12 +48,19 @@ int main (int argc, char *argv[])
 			outputDir = argv[6];
 		}
 
+
+	printf("reading file...");
+
     char * fileName = argv[4]; 
     FILE* fileIn = fopen(fileName, "r");
 
+    printf("read file, now running sortFile");
 		
 
 		Movie **movieList = sortFile(argv[2],fileIn);
+
+		printf("moviesorted");
+		
 		//printAll(movieList);
 		printAllCSV(movieList);
 		return 0;

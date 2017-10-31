@@ -16,6 +16,8 @@ Movie ** sortFile(char* sortBy, FILE* file){
 	Movie **movieList = (Movie **)malloc(MAXX * sizeof(Movie *));
 	int numOfMovies = 0;
 
+	printf("okay here before fgets");
+
 	//Loops until scanf is unsuccessful/reaches EOF
 	while (fgets(line, 1000, file))
 	{
@@ -26,6 +28,8 @@ Movie ** sortFile(char* sortBy, FILE* file){
 	}
 
     fclose(file);
+
+    printf("merging list");
 	
 	//Mergesort list based off of field
 	mergeSort(movieList, 0, numOfMovies-1, sortBy);
