@@ -43,9 +43,12 @@ int main (int argc, char *argv[])
 		char *outputDir;
 
 		//The 3rd flag is optional
-		if (strcmp(argv[5], "-o") == 0)
+		if (argc == 7)
 		{
-			outputDir = argv[6];
+			if (strcmp(argv[5], "-o") == 0)
+			{
+				outputDir = argv[6];
+			}
 		}
 
 
@@ -60,7 +63,7 @@ int main (int argc, char *argv[])
 		Movie **movieList = sortFile(argv[2],fileIn);
 
 		printf("moviesorted");
-		
+
 		//printAll(movieList);
 		printAllCSV(movieList);
 		return 0;
